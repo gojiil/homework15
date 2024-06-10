@@ -157,7 +157,9 @@ class Rectangle:
         Возвращает:
         - str: строковое представление прямоугольника
         """
-        return f"Прямоугольник со сторонами {self.width} и {self.height}"
+        text = f"Прямоугольник со сторонами {self.width} и {self.height}"
+        logger.debug(msg=text)
+        return text
 
     def __repr__(self):
         """
@@ -171,14 +173,21 @@ class Rectangle:
 
 
 if __name__ == "__main__":
+    from sys import argv
     import logging
 
     FORMAT = '{levelname:<8} - {asctime}. ' \
     'в {created} секунд записала сообщение: {msg}'
 
-    logging.basicConfig(filename='logfile.log', filemode='w', format=FORMAT, style='{', encoding='utf-8', level=logging.INFO)
+    logging.basicConfig(filename='logfile.log', filemode='w', format=FORMAT, style='{', encoding='utf-8', level=logging.DEBUG)
     logger = logging.getLogger(__name__)
 
+    if len(argv) > 1:
+        if len(argv) > 2:
+            rect0 = Rectangle(int(argv[1]), int(argv[2]))
+        else:
+            rect0 = Rectangle(int(argv[1]))
+        rect0.__str__()
     rect1 = Rectangle(5)
     rect2 = Rectangle(2, 4)
     rect3 = Rectangle(-3)
